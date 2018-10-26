@@ -12,6 +12,7 @@ import {
     Text,
     View
 } from 'react-native';
+import NavigatorUtil from "../util/NavigatorUtil";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -22,15 +23,25 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class NewsPage extends Component<Props> {
+    constructor(props) {
+        super(props);
+    }
+
     static navigationOptions = {
         tabBarLabel: '新闻',
-        tabBarIcon: ({focused}) => {
+        tabBarIcon: ({tintColor,focused}) => {
             return (
-                <Image style={styles.iconImage}
+                <Image style={[styles.iconImage,{tintColor: tintColor}]}
                        source={require('../../res/images/ic_news.png')}/>
             );
         },
     };
+
+    componentDidMount() {
+        this.timer = setTimeout(() => {
+            this.props.navigation.navigate('MinePage', {title: 'Devio'})
+        }, 3000)
+    }
 
     render() {
         return (

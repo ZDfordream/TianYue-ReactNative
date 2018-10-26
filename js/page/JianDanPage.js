@@ -25,9 +25,9 @@ export default class JianDanPage extends Component<Props> {
 
     static navigationOptions = {
         tabBarLabel: '煎蛋',
-        tabBarIcon: ({focused}) => {
+        tabBarIcon: ({tintColor,focused}) => {
             return (
-                <Image style={styles.iconImage}
+                <Image style={[styles.iconImage,{tintColor: tintColor}]}
                        source={require('../../res/images/ic_jiandan.png')}/>
             );
         },

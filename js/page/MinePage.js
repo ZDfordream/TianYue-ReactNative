@@ -24,9 +24,9 @@ type Props = {};
 export default class MinePage extends Component<Props> {
     static navigationOptions = {
         tabBarLabel: '我的',
-        tabBarIcon: ({focused}) => {
+        tabBarIcon: ({tintColor,focused}) => {
             return (
-                <Image style={styles.iconImage}
+                <Image style={[styles.iconImage,{tintColor: tintColor}]}
                        source={require('../../res/images/ic_my.png')}/>
             );
         },
