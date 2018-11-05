@@ -5,6 +5,7 @@ import NewsPage from '../page/NewsPage'
 import VideoPage from '../page/VideoPage'
 import JianDanPage from '../page/JianDanPage'
 import MinePage from '../page/MinePage'
+import NewsChildPage from "../page/NewsChildPage";
 
 export const HomePage = TabNavigator({
         NewsPage: {

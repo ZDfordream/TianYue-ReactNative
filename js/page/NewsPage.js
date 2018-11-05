@@ -12,26 +12,26 @@ import {
     Text,
     View
 } from 'react-native';
-import NavigatorUtil from "../util/NavigatorUtil";
+import NewsChildPage from './NewsChildPage'
+import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const labelQuery = ['top', 'shehui', 'guonei', 'guoji', 'yule', 'tiyu', 'junshi', 'keji']
 
-type Props = {};
+
 export default class NewsPage extends Component<Props> {
     constructor(props) {
-        super(props);
+        super(props); 
+        this.state = {
+            tabShow: false,
+            label: ['头条', '社会', '国内', '国际', '娱乐', '体育', '军事', '科技'],
+        };
     }
 
     static navigationOptions = {
         tabBarLabel: '新闻',
-        tabBarIcon: ({tintColor,focused}) => {
+        tabBarIcon: ({tintColor, focused}) => {
             return (
-                <Image style={[styles.iconImage,{tintColor: tintColor}]}
+                <Image style={[styles.iconImage, {tintColor: tintColor}]}
                        source={require('../../res/images/ic_news.png')}/>
             );
         },
@@ -39,18 +39,35 @@ export default class NewsPage extends Component<Props> {
 
     componentDidMount() {
         this.timer = setTimeout(() => {
-            this.props.navigation.navigate('MinePage', {title: 'Devio'})
-        }, 3000)
+            this.setState({
+                tabShow: true
+            });
+        }, 0)
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.instructions}>
-                    newspage
-                </Text>
-            </View>
-        );
+        if (this.state.tabShow) {
+            return (
+                <View style={styles.container}>
+                    <ScrollableTabView
+                        initialPage={0}
+                        renderTabBar={() => <ScrollableTabBar/>}
+                        tabBarBackgroundColor='#4BC1D2'
+                        tabBarActiveTextColor='#fff'
+                        tabBarInactiveTextColor='#eee'
+                        tabBarUnderlineStyle={styles.tabBarUnderline}>
+                        {
+                            this.state.label.map((item, index) => {
+                                return (<NewsChildPage tabLabel={labelQuery[index]} key={index}>
+                                    {item}</NewsChildPage>)
+                            })
+                        }
+                    </ScrollableTabView>
+                </View>
+            );
+        }else{
+            return null
+        }
     }
 }
 
@@ -74,6 +91,10 @@ const styles = StyleSheet.create({
     iconImage: {
         height: 26,
         width: 26,
-        resizeMode:'cover',
+        resizeMode: 'cover',
     },
+    tabBarUnderline: {
+        backgroundColor: '#fff',
+        height: 2,
+    }
 });
