@@ -5,7 +5,8 @@ import NewsPage from '../page/NewsPage'
 import VideoPage from '../page/VideoPage'
 import JianDanPage from '../page/JianDanPage'
 import MinePage from '../page/MinePage'
-import NewsChildPage from "../page/NewsChildPage";
+import WebViewPage from "../page/WebViewPage";
+
 
 export const HomePage = TabNavigator({
         NewsPage: {
@@ -56,7 +57,10 @@ export default AppNavigator = StackNavigator({
     },
     HomePage: {
         screen: HomePage
-    }
+    },
+    WebViewPage: {
+        screen: WebViewPage
+    },
 }, {
     navigationOptions: {
         header: null

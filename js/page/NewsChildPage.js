@@ -9,17 +9,17 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput,
     RefreshControl,
     ActivityIndicator,
     FlatList
 } from 'react-native';
 import DataRepository from '../expand/dao/DataRepository'
+import NewsCell from '../common/NewsCell'
+import WebViewPage from "../page/WebViewPage";
 
 const URL = 'http://v.juhe.cn/toutiao/index?type='
-const URL_KEY = '=&key=5370d210dd038e9e4d722fd329a30130'
-const CITY_NAMES = [{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}, {key: 'g'}, {key: 'h'}]
-
+const URL_KEY = '&key=5370d210dd038e9e4d722fd329a30130'
+const labelQuery = ['top', 'shehui', 'guonei', 'guoji', 'yule', 'tiyu', 'junshi', 'keji']
 export default class NewsChildPage extends Component<Props> {
 
     constructor(props) {
@@ -37,37 +37,30 @@ export default class NewsChildPage extends Component<Props> {
     }
 
     onLoad() {
-        this.dataRepository.fetchNetRepository(URL + this.props.tabLabel + URL_KEY)
+        var queryTab = labelQuery[this.props.tabIndex]
+        this.dataRepository.fetchNetRepository(URL + queryTab + URL_KEY)
             .then(result => {
                 this.setState({
-                    dataArray:result.result.data,
+                    dataArray: result.result.data,
                     result: JSON.stringify(result)
                 })
-                console.log('-----'+this.state.dataArray)
+                console.log('-----' + this.state.dataArray)
             })
             .catch(error => {
                 this.setState({
                     result: JSON.stringify(error)
                 })
             })
-
     }
 
-    loadData(loadMore) {
-        if (!loadMore) {
-            this.setState({
-                isLoading: true
-            });
-        }
-
+    refreshData() {
+        this.setState({
+            isLoading: true
+        });
         setTimeout(() => {
             let dataArray = []
-            if (loadMore) {
-                //dataArray = this.state.dataArray.concat(CITY_NAMES)
-            } else {
-                for (let i = this.state.dataArray.length - 1; i >= 0; i--) {
-                    dataArray.push(this.state.dataArray[i])
-                }
+            for (let i = this.state.dataArray.length - 1; i >= 0; i--) {
+                dataArray.push(this.state.dataArray[i])
             }
             this.setState({
                 dataArray: dataArray,
@@ -76,10 +69,21 @@ export default class NewsChildPage extends Component<Props> {
         }, 2000)
     }
 
+    loadData() {
+        this.setState({
+            isLoading: false
+        });
+        setTimeout(() => {
+        }, 2000)
+    }
+
+    onSelect(item) {
+        this.props.navigation.navigate('WebViewPage', {data: item})
+    }
+
     renderItem(item) {
-        return <View style={styles.item}>
-            <Text style={styles.text}>{item.title}</Text>
-        </View>
+        return <NewsCell data={item}
+                         onSelect={() => this.onSelect(item)}/>
     }
 
     getIndicator() {
@@ -107,12 +111,12 @@ export default class NewsChildPage extends Component<Props> {
                             tintColor={'#4BC1D2'}
                             refreshing={this.state.isLoading}
                             onRefresh={() => {
-                                this.loadData(false)
+                                this.refreshData()
                             }}/>
                     }
                     ListFooterComponent={() => this.getIndicator()}
                     onEndReached={() => {
-                        this.loadData(true)
+                        this.loadData()
                     }}/>
             </View>
         );
@@ -155,3 +159,5 @@ const styles = StyleSheet.create({
         margin: 10
     }
 });
+
+

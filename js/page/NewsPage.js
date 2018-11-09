@@ -15,9 +15,6 @@ import {
 import NewsChildPage from './NewsChildPage'
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 
-const labelQuery = ['top', 'shehui', 'guonei', 'guoji', 'yule', 'tiyu', 'junshi', 'keji']
-
-
 export default class NewsPage extends Component<Props> {
     constructor(props) {
         super(props); 
@@ -58,8 +55,8 @@ export default class NewsPage extends Component<Props> {
                         tabBarUnderlineStyle={styles.tabBarUnderline}>
                         {
                             this.state.label.map((item, index) => {
-                                return (<NewsChildPage tabLabel={labelQuery[index]} key={index}>
-                                    {item}</NewsChildPage>)
+                                return (<NewsChildPage {...this.props} tabLabel={item} tabIndex={index} key={index}>
+                                    </NewsChildPage>)
                             })
                         }
                     </ScrollableTabView>
