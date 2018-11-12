@@ -5,15 +5,9 @@
  */
 
 import React, {Component} from 'react';
-import {
-    Platform,
-    StyleSheet,
-    Image,
-    Text,
-    View
-} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import NewsChildPage from './NewsChildPage'
-import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
 export default class NewsPage extends Component<Props> {
     constructor(props) {
