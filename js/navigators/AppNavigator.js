@@ -6,7 +6,7 @@ import VideoPage from '../page/VideoPage'
 import JianDanPage from '../page/JianDanPage'
 import MinePage from '../page/MinePage'
 import WebViewPage from "../page/WebViewPage";
-
+import PhotoBrowserScene from "../page/PhotoBrowserScene";
 
 export const HomePage = TabNavigator({
         NewsPage: {
@@ -60,6 +60,9 @@ export default AppNavigator = StackNavigator({
     },
     WebViewPage: {
         screen: WebViewPage
+    },
+    PhotoBrowserScene: {
+        screen: PhotoBrowserScene
     },
 }, {
     navigationOptions: {

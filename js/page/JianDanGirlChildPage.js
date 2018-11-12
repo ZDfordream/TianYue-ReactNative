@@ -8,8 +8,8 @@ import {
     FlatList
 } from 'react-native';
 import DataRepository from '../expand/dao/DataRepository'
-import WebViewPage from "../page/WebViewPage";
 import JianDanGirlCell from '../common/JianDanGirlCell'
+import PhotoBrowserScene from "../page/PhotoBrowserScene";
 
 const URL = 'http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_ooxx_comments&page='
 export default class JianDanGirlChildPage extends Component<Props> {
@@ -70,7 +70,8 @@ export default class JianDanGirlChildPage extends Component<Props> {
     }
 
     onSelect(item) {
-        this.props.navigation.navigate('WebViewPage', {data: item})
+        let media = [{photo: item.pics[0]}]
+        this.props.navigation.navigate('PhotoBrowserScene', {media:media, index:0})
     }
 
     renderItem(item) {
