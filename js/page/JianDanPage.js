@@ -6,6 +6,7 @@ import {
     View
 } from 'react-native';
 import JianDanGirlChildPage from './JianDanGirlChildPage'
+import JianDanJokeChildPage from './JianDanJokeChildPage'
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 
 export default class VideoPage extends Component<Props> {
@@ -48,14 +49,19 @@ export default class VideoPage extends Component<Props> {
                         tabBarUnderlineStyle={styles.tabBarUnderline}>
                         {
                             this.state.label.map((item, index) => {
-                                return (<JianDanGirlChildPage {...this.props} tabLabel={item} tabIndex={index} key={index}>
-                                </JianDanGirlChildPage>)
+                                if (index == 0) {
+                                    return (<JianDanGirlChildPage {...this.props} tabLabel={item} tabIndex={index}
+                                                                  key={index}/>)
+                                } else if (index == 1) {
+                                    return (<JianDanJokeChildPage {...this.props} tabLabel={item} tabIndex={index}
+                                                                  key={index}/>)
+                                }
                             })
                         }
                     </ScrollableTabView>
                 </View>
             );
-        }else{
+        } else {
             return null
         }
     }

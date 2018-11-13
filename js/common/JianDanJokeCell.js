@@ -10,41 +10,23 @@ import {
 let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
 
-export default class JianDanGirlCell extends Component {
+export default class JianDanJokeCell extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            imageHeight:0,//默认为0
-            imageWidth:0,
-        };
-    }
-
-    componentDidMount() {
-        Image.getSize(this.props.data.pics[0], (width, height) => {
-            let height2 = screenWidth * height / width; //按照屏幕宽度进行等比缩放
-            this.setState({imageHeight, height2});
-        });
     }
 
     render() {
         let item = this.props.data;
-        let imageUrl = item.pics[0]
         return (
-            <TouchableOpacity
-                onPress={this.props.onSelect}>
                 <View style={styles.cell_container}>
-                    <View style={styles.image_container}>
-                        <Image
-                            style={styles.image}
-                            source={{uri: imageUrl}}/>
+                    <View style={styles.text_container}>
+                        <Text>{item.text_content}</Text>
                     </View>
-
                     <View style={styles.description}>
                         <Text style={styles.title} numberOfLines={1}>{item.comment_author}</Text>
                         <Text>{item.comment_date}</Text>
                     </View>
                 </View>
-            </TouchableOpacity>
         )
     }
 }
@@ -65,9 +47,8 @@ const styles = StyleSheet.create({
         elevation: 2,
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'center',
     },
-    image_container: {
+    text_container: {
         flex: 1,
     },
     image: {
@@ -76,11 +57,9 @@ const styles = StyleSheet.create({
         resizeMode:'contain'
     },
     description: {
+        flex:1,
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 5,
-        marginRight: 5,
     },
     title: {
         height: 40,

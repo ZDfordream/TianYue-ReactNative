@@ -8,11 +8,11 @@ import {
     FlatList
 } from 'react-native';
 import DataRepository from '../expand/dao/DataRepository'
-import JianDanGirlCell from '../common/JianDanGirlCell'
+import JianDanJokeCell from '../common/JianDanJokeCell'
 import PhotoBrowserScene from "../page/PhotoBrowserScene";
 
-const URL = 'http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_ooxx_comments&page='
-export default class JianDanGirlChildPage extends Component<Props> {
+const URL = 'http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_duan_comments&page='
+export default class JianDanJokeChildPage extends Component<Props> {
 
     constructor(props) {
         super(props)
@@ -84,8 +84,7 @@ export default class JianDanGirlChildPage extends Component<Props> {
     }
 
     renderItem(item) {
-        return <JianDanGirlCell data={item}
-                         onSelect={() => this.onSelect(item)}/>
+        return <JianDanJokeCell data={item}/>
     }
 
     getIndicator() {
@@ -154,6 +153,7 @@ const styles = StyleSheet.create({
         height:200,
     },
     description: {
+        flex:1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginLeft: 5,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     title: {
         height: 40,
         lineHeight: 40,
-        fontSize: 16,
+        fontSize: 13,
         marginBottom: 2,
         color: '#212121',
         marginHorizontal: 5,
