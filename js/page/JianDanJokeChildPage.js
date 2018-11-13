@@ -25,15 +25,21 @@ export default class JianDanJokeChildPage extends Component<Props> {
     }
 
     componentDidMount() {
-        this.page = 1
+        this.page = 0
         this.onLoad()
     }
 
     onLoad() {
+        this.page++
         this.dataRepository.fetchNetRepository(URL + this.page)
             .then(result => {
+                let dataArray = []
+                dataArray = dataArray.concat(this.state.dataArray)
+                for (let i = 0; i<result.comments.length; i++) {
+                    dataArray.push(result.comments[i])
+                }
                 this.setState({
-                    dataArray: result.comments,
+                    dataArray: dataArray,
                     result: JSON.stringify(result)
                 })
                 console.log('-----' + this.state.dataArray)
@@ -54,7 +60,9 @@ export default class JianDanJokeChildPage extends Component<Props> {
             let dataArray = []
             this.dataRepository.fetchNetRepository(URL + this.page)
                 .then(result => {
-                    dataArray.push(result.comments)
+                    for (let i = 0; i<result.comments.length; i++) {
+                        dataArray.push(result.comments[i])
+                    }
                     this.setState({
                         dataArray: dataArray,
                         result: JSON.stringify(result),
@@ -67,14 +75,6 @@ export default class JianDanJokeChildPage extends Component<Props> {
                         isLoading: false
                     })
                 })
-        }, 2000)
-    }
-
-    loadData() {
-        this.setState({
-            isLoading: false
-        });
-        setTimeout(() => {
         }, 2000)
     }
 
@@ -122,7 +122,7 @@ export default class JianDanJokeChildPage extends Component<Props> {
                     }
                     ListFooterComponent={() => this.getIndicator()}
                     onEndReached={() => {
-                        this.loadData()
+                        this.onLoad()
                     }}/>
             </View>
         );
